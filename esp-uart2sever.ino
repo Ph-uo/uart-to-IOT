@@ -5,7 +5,7 @@
 #include <SimpleTimer.h>
 
 int ex,ey;//data tu due
-int x,y;//data tu python
+int x=1,y=2;//data tu python
 const char* ssid = "esp32";
 const char* password = "12345678";
 
@@ -32,41 +32,41 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsE
   } else if (type == WS_EVT_DISCONNECT) {
     Serial.println("WebSocket client disconnected");
   } else if (type == WS_EVT_DATA) {
-    Serial.println("WebSocket data received");
-    String message = (char*)data;
+  //   Serial.println("WebSocket data received");
+  //   String message = (char*)data;
     if (message == "getReadings") {
       send2client();
     }
   }
 }
 
-void uartsend(){
-  // Gửi dữ liệu uart từ ESP32 đến Arduino Due
-  Serial.println(x);
-  Serial.print(",");
-  Serial.print(y);
-}
-void uartrecive(){
- if (Serial.available() > 0) {
-    // Đọc một dòng từ UART
-    String inputString = Serial.readStringUntil('\n');
-    inputString.trim();
+// void uartsend(){
+//   // Gửi dữ liệu uart từ ESP32 đến Arduino Due
+//   Serial.print(x);
+//   Serial.print(",");
+//   Serial.println(y);
+// }
+// void uartrecive(){
+//  if (Serial.available() > 0) {
+//     // Đọc một dòng từ UART
+//     String inputString = Serial.readStringUntil('\n');
+//     inputString.trim();
 
-    // Chuyển chuỗi thành mảng ký tự
-    char inputChars[inputString.length() + 1];
-    inputString.toCharArray(inputChars, inputString.length() + 1);
+//     // Chuyển chuỗi thành mảng ký tự
+//     char inputChars[inputString.length() + 1];
+//     inputString.toCharArray(inputChars, inputString.length() + 1);
 
-    // Tách chuỗi thành hai phần tử x và y
-    char *token = strtok(inputChars, ",");
-    if (token != NULL) {
-      ex = atoi(token); 
-      token = strtok(NULL, ",");
-      if (token != NULL) {
-        ey = atoi(token);
-      }
-    }
- }
-}
+//     // Tách chuỗi thành hai phần tử x và y
+//     char *token = strtok(inputChars, ",");
+//     if (token != NULL) {
+//       ex = atoi(token); 
+//       token = strtok(NULL, ",");
+//       if (token != NULL) {
+//         ey = atoi(token);
+//       }
+//     }
+//  }
+//}
 
 void setup() {
   // Start the Serial Monitor
@@ -89,8 +89,8 @@ void setup() {
 
 void loop() {
   timer.run(); // Run the timer
-  uartsend();
-  uartrecive();
+  // uartsend();
+  // uartrecive();
 
 }
 

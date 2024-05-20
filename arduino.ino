@@ -1,11 +1,11 @@
-
-int ex,ey;
+#include <SoftwareSerial.h>
+int ex=9,ey=10;
 int x,y;
 void uartsend(){
     // Gửi dữ liệu uart từ ESP8266 đến Arduino Due
-  Serial.println(ex);
+  Serial.print(ex);
   Serial.print(",");
-  Serial.print(ey);
+  Serial.println(ey);
 }
 void uartrecive(){
  if (Serial.available() > 0) {
@@ -37,4 +37,6 @@ void setup() {
 void loop() {
   uartrecive();
   uartsend();
+  // Serial1.print(x);
+  // Serial1.print(y);
 }
